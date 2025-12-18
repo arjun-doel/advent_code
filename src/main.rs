@@ -7,17 +7,21 @@ fn main() {
     let split_string = contents.split("\n");
     let collection: Vec<&str> = split_string.collect();
 
-    let output = advent_of_code_day_one(collection, 0);
+    let output = advent_of_code_day_one(collection, 50);
     println!("there were {} 0 counts:", output)
 }
 
-fn advent_of_code_day_one(collection: Vec<&str>, initial_value: i32) -> i32 {
+fn advent_of_code_day_one(collection: Vec<& str>, initial_value: i32) -> i32 {
     let mut zero_count = 0;
     let mut start_number = initial_value;
 
     for a in collection {
         let rotation = a.chars().next().unwrap().to_string();
-        let rotation_value: String = a.chars().skip(1).collect();
+        let mut rotation_value: String = a.chars().skip(1).collect();
+        if rotation_value.len() > 2 {
+            rotation_value = a.chars().skip((1 + rotation_value.len()) - 2).collect()
+        }
+
         let rotation_number = rotation_value.parse::<i32>().unwrap();
 
         let left = "L";
